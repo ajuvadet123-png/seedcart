@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Filter, SlidersHorizontal, ShoppingBag } from 'lucide-react';
+import { SlidersHorizontal, ShoppingBag } from 'lucide-react';
 import { getCategories, getProducts, getStoreSettings } from '@/lib/data';
 import ProductCard from '@/components/ProductCard';
 
@@ -50,32 +50,32 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
   const { products, total } = productsRes;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 bg-white">
       {/* Page Title & Breadcrumbs */}
       <div className="mb-8">
-        <div className="flex items-center gap-2 text-xs text-slate-400 mb-2">
-          <Link href="/" className="hover:text-emerald-700 transition-colors">Home</Link>
+        <div className="flex items-center gap-2 text-xs text-neutral-400 mb-2">
+          <Link href="/" className="hover:text-black transition-colors">Home</Link>
           <span>/</span>
-          <span className="text-slate-700 font-semibold">All Products</span>
+          <span className="text-neutral-800 font-medium">All Products</span>
           {categorySlug && (
             <>
               <span>/</span>
-              <span className="text-emerald-700 font-semibold capitalize">{categorySlug.replace(/-/g, ' ')}</span>
+              <span className="text-neutral-800 font-medium capitalize">{categorySlug.replace(/-/g, ' ')}</span>
             </>
           )}
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-neutral-100">
           <div>
-            <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-              {isFeatured ? 'Featured Collection' :
+            <h1 className="text-2xl sm:text-3xl font-black text-neutral-900 tracking-tight">
+              {isFeatured ? 'Top Deals' :
                isNewArrival ? 'New Arrivals' :
                isBestSeller ? 'Best Sellers' :
                categorySlug ? `${categories.find(c => c.slug === categorySlug)?.name || 'Category'} Collection` :
                'All Products'}
             </h1>
-            <p className="text-sm text-slate-500 mt-1">
-              Showing {products.length} of {total} {total === 1 ? 'item' : 'items'} available for instant WhatsApp ordering.
+            <p className="text-xs sm:text-sm text-neutral-500 mt-1">
+              Showing {products.length} of {total} {total === 1 ? 'item' : 'items'} available for WhatsApp ordering.
             </p>
           </div>
 
@@ -83,40 +83,40 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
           <div className="flex flex-wrap items-center gap-2 text-xs">
             <Link
               href="/products"
-              className={`px-3 py-1.5 rounded-full border transition-all ${
+              className={`px-3 py-1.5 rounded-md border text-xs font-medium transition-all ${
                 !isFeatured && !isNewArrival && !isBestSeller && !categorySlug
-                  ? 'bg-emerald-600 text-white border-emerald-600 font-semibold shadow-sm'
-                  : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
+                  ? 'bg-black text-white border-black font-semibold'
+                  : 'bg-white text-neutral-700 border-neutral-200 hover:border-neutral-400'
               }`}
             >
               All Items
             </Link>
             <Link
               href="/products?featured=true"
-              className={`px-3 py-1.5 rounded-full border transition-all ${
+              className={`px-3 py-1.5 rounded-md border text-xs font-medium transition-all ${
                 isFeatured
-                  ? 'bg-emerald-600 text-white border-emerald-600 font-semibold shadow-sm'
-                  : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
+                  ? 'bg-black text-white border-black font-semibold'
+                  : 'bg-white text-neutral-700 border-neutral-200 hover:border-neutral-400'
               }`}
             >
-              Featured
+              Top Deals
             </Link>
             <Link
               href="/products?new_arrival=true"
-              className={`px-3 py-1.5 rounded-full border transition-all ${
+              className={`px-3 py-1.5 rounded-md border text-xs font-medium transition-all ${
                 isNewArrival
-                  ? 'bg-emerald-600 text-white border-emerald-600 font-semibold shadow-sm'
-                  : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
+                  ? 'bg-black text-white border-black font-semibold'
+                  : 'bg-white text-neutral-700 border-neutral-200 hover:border-neutral-400'
               }`}
             >
               New Arrivals
             </Link>
             <Link
               href="/products?best_seller=true"
-              className={`px-3 py-1.5 rounded-full border transition-all ${
+              className={`px-3 py-1.5 rounded-md border text-xs font-medium transition-all ${
                 isBestSeller
-                  ? 'bg-emerald-600 text-white border-emerald-600 font-semibold shadow-sm'
-                  : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
+                  ? 'bg-black text-white border-black font-semibold'
+                  : 'bg-white text-neutral-700 border-neutral-200 hover:border-neutral-400'
               }`}
             >
               Best Sellers
@@ -128,25 +128,25 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Sidebar Filters */}
         <div className="lg:col-span-1 space-y-6">
-          <div className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm space-y-6 sticky top-28">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-              <h3 className="font-bold text-slate-900 text-base flex items-center gap-2">
-                <SlidersHorizontal className="w-4 h-4 text-emerald-600" />
-                <span>Filters & Sorting</span>
+          <div className="bg-[#faf8f5] rounded-xl border border-neutral-200/80 p-5 space-y-6 sticky top-28">
+            <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
+              <h3 className="font-bold text-neutral-900 text-xs uppercase tracking-wider flex items-center gap-2">
+                <SlidersHorizontal className="w-3.5 h-3.5" />
+                <span>Sort & Filter</span>
               </h3>
               {(categorySlug || minPrice || maxPrice || sort !== 'newest') && (
                 <Link
                   href="/products"
-                  className="text-xs font-semibold text-rose-600 hover:text-rose-700"
+                  className="text-[11px] font-semibold text-terracotta hover:underline"
                 >
-                  Reset All
+                  Reset
                 </Link>
               )}
             </div>
 
             {/* Sort Options */}
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block">
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block">
                 Sort By
               </label>
               <div className="space-y-1">
@@ -164,10 +164,10 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                     <Link
                       key={s.val}
                       href={`/products?${params.toString()}`}
-                      className={`block px-3 py-2 rounded-xl text-xs font-medium transition-colors ${
+                      className={`block px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                         isCurrent
-                          ? 'bg-emerald-50 text-emerald-800 font-bold'
-                          : 'text-slate-600 hover:bg-slate-50'
+                          ? 'bg-black text-white font-semibold'
+                          : 'text-neutral-700 hover:bg-neutral-200/50'
                       }`}
                     >
                       {s.label}
@@ -178,19 +178,19 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
             </div>
 
             {/* Category Filter */}
-            <div className="space-y-2 pt-2 border-t border-slate-100">
-              <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block">
+            <div className="space-y-1.5 pt-3 border-t border-neutral-200">
+              <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block">
                 Categories
               </label>
-              <div className="max-h-60 overflow-y-auto space-y-1 pr-1">
+              <div className="max-h-60 overflow-y-auto space-y-1 pr-1 scrollbar-none">
                 <Link
                   href="/products"
-                  className={`flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                    !categorySlug ? 'bg-emerald-50 text-emerald-800 font-bold' : 'text-slate-600 hover:bg-slate-50'
+                  className={`flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                    !categorySlug ? 'bg-black text-white font-semibold' : 'text-neutral-700 hover:bg-neutral-200/50'
                   }`}
                 >
                   <span>All Categories</span>
-                  <span className="text-slate-400 text-[10px]">{total}</span>
+                  <span className={`text-[10px] ${!categorySlug ? 'text-neutral-300' : 'text-neutral-400'}`}>{total}</span>
                 </Link>
                 {categories.map((c) => {
                   const isSelected = categorySlug === c.slug;
@@ -198,13 +198,15 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                     <Link
                       key={c.id}
                       href={`/products?category=${c.slug}`}
-                      className={`flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                        isSelected ? 'bg-emerald-50 text-emerald-800 font-bold' : 'text-slate-600 hover:bg-slate-50'
+                      className={`flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                        isSelected ? 'bg-black text-white font-semibold' : 'text-neutral-700 hover:bg-neutral-200/50'
                       }`}
                     >
                       <span className="truncate">{c.name}</span>
                       {c.product_count !== undefined && (
-                        <span className="text-slate-400 text-[10px]">{c.product_count}</span>
+                        <span className={`text-[10px] ${isSelected ? 'text-neutral-300' : 'text-neutral-400'}`}>
+                          {c.product_count}
+                        </span>
                       )}
                     </Link>
                   );
@@ -213,8 +215,8 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
             </div>
 
             {/* Availability Filter */}
-            <div className="space-y-2 pt-2 border-t border-slate-100">
-              <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block">
+            <div className="space-y-1.5 pt-3 border-t border-neutral-200">
+              <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block">
                 Availability
               </label>
               <div className="space-y-1">
@@ -231,10 +233,10 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                     <Link
                       key={av.val}
                       href={`/products?${params.toString()}`}
-                      className={`block px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                      className={`block px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                         isCurrent
-                          ? 'bg-emerald-50 text-emerald-800 font-bold'
-                          : 'text-slate-600 hover:bg-slate-50'
+                          ? 'bg-black text-white font-semibold'
+                          : 'text-neutral-700 hover:bg-neutral-200/50'
                       }`}
                     >
                       {av.label}
@@ -249,25 +251,25 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
         {/* Product Grid Area */}
         <div className="lg:col-span-3">
           {products.length === 0 ? (
-            <div className="bg-white rounded-3xl border border-slate-200/80 p-12 text-center space-y-4">
-              <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
-                <ShoppingBag className="w-8 h-8" />
+            <div className="bg-[#faf8f5] rounded-xl border border-neutral-200 p-12 text-center space-y-3">
+              <div className="w-12 h-12 rounded-full bg-neutral-200 flex items-center justify-center mx-auto text-neutral-400">
+                <ShoppingBag className="w-6 h-6" />
               </div>
-              <h3 className="text-lg font-bold text-slate-900">No products found</h3>
-              <p className="text-sm text-slate-500 max-w-md mx-auto">
-                We couldn&apos;t find any products matching your selected filters. Try broadening your criteria or reset filters.
+              <h3 className="text-base font-bold text-neutral-900">No products found</h3>
+              <p className="text-xs text-neutral-500 max-w-sm mx-auto">
+                No items match your filter criteria. Try resetting your search filters.
               </p>
               <div className="pt-2">
                 <Link
                   href="/products"
-                  className="inline-flex px-5 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-semibold hover:bg-emerald-700 transition-colors"
+                  className="inline-flex px-4 py-2 bg-black text-white rounded-md text-xs font-semibold hover:bg-neutral-800"
                 >
                   Reset All Filters
                 </Link>
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
               {products.map((product) => (
                 <ProductCard
                   key={product.id}

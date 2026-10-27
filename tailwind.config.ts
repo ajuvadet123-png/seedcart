@@ -9,30 +9,30 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        brand: {
-          50: "#f0fdf4",
-          100: "#dcfce7",
-          200: "#bbf7d0",
-          300: "#86efac",
-          400: "#4ade80",
-          500: "#22c55e",
-          600: "#16a34a",
-          700: "#15803d",
-          800: "#166534",
-          900: "#14532d",
-          950: "#052e16",
+        terracotta: {
+          DEFAULT: "#b85d43",
+          hover: "#a34e36",
+          light: "#c86d51",
+          50: "#fbf3f0",
+          100: "#f6e4de",
         },
-        primary: {
-          50: "#f8fafc",
-          100: "#f1f5f9",
-          200: "#e2e8f0",
-          300: "#cbd5e1",
-          400: "#94a3b8",
-          500: "#64748b",
-          600: "#475569",
-          700: "#334155",
-          800: "#1e293b",
-          900: "#0f172a",
+        warm: {
+          50: "#fdfbf9",
+          100: "#fbf8f5",
+          150: "#f7f4ee",
+          200: "#f2ece1",
+          300: "#e6dcce",
+          400: "#d3c2ad",
+          500: "#bda58d",
+          600: "#9f866e",
+          700: "#7c6753",
+          800: "#5d4c3d",
+          900: "#3d3228",
+        },
+        charcoal: {
+          DEFAULT: "#141414",
+          light: "#222222",
+          subtle: "#2a2a2a",
         },
         whatsapp: {
           DEFAULT: "#25D366",
@@ -41,7 +41,8 @@ const config: Config = {
         }
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "sans-serif"],
+        sans: ["var(--font-inter)", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+        serif: ["Playfair Display", "Georgia", "serif"],
       },
     },
   },

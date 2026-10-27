@@ -21,23 +21,23 @@ export default function ProductGallery({ images, title }: ProductGalleryProps) {
     <div className="flex flex-col-reverse lg:flex-row gap-4">
       {/* Thumbnails */}
       {defaultImages.length > 1 && (
-        <div className="flex lg:flex-col gap-3 overflow-x-auto lg:overflow-y-auto max-h-[500px] scrollbar-none py-1">
+        <div className="flex lg:flex-col gap-2.5 overflow-x-auto lg:overflow-y-auto max-h-[500px] scrollbar-none py-1">
           {defaultImages.map((img, idx) => (
             <button
               key={img.id || idx}
               type="button"
               onClick={() => setSelectedIndex(idx)}
-              className={`relative flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden border-2 transition-all ${
+              className={`relative flex-shrink-0 w-16 h-16 sm:w-18 sm:h-18 rounded-lg overflow-hidden border transition-all ${
                 selectedIndex === idx
-                  ? 'border-emerald-600 ring-2 ring-emerald-500/20'
-                  : 'border-slate-200 hover:border-slate-400 opacity-70 hover:opacity-100'
+                  ? 'border-black ring-1 ring-black'
+                  : 'border-neutral-200 opacity-60 hover:opacity-100'
               }`}
             >
               <Image
                 src={img.image_url}
                 alt={`${title} thumbnail ${idx + 1}`}
                 fill
-                sizes="80px"
+                sizes="72px"
                 className="object-cover object-center"
                 unoptimized
               />
@@ -47,7 +47,7 @@ export default function ProductGallery({ images, title }: ProductGalleryProps) {
       )}
 
       {/* Main Image */}
-      <div className="relative flex-1 aspect-square rounded-3xl bg-slate-100 border border-slate-200/80 overflow-hidden shadow-sm">
+      <div className="relative flex-1 aspect-square rounded-xl bg-[#f8f8f8] border border-neutral-200/80 overflow-hidden">
         <Image
           src={currentImage.image_url}
           alt={currentImage.alt_text || title}

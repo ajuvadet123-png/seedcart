@@ -3,15 +3,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { 
   ArrowRight, 
-  Sparkles, 
-  Flame, 
-  Clock, 
   MessageCircle, 
-  Layers, 
   CheckCircle, 
-  ShoppingBag,
-  Zap,
-  Tag
+  ShoppingBag, 
+  PackageCheck, 
+  Sparkles, 
+  Clock, 
+  Headphones,
+  ShieldCheck,
+  Send
 } from 'lucide-react';
 import { getCategories, getProducts, getStoreSettings } from '@/lib/data';
 import ProductCard from '@/components/ProductCard';
@@ -19,315 +19,352 @@ import ProductCard from '@/components/ProductCard';
 export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
-  const [categories, settings, featuredRes, newArrivalsRes, bestSellersRes] = await Promise.all([
+  const [categories, settings, featuredRes, trendingRes, recommendedRes] = await Promise.all([
     getCategories(true),
     getStoreSettings(),
-    getProducts({ isFeatured: true, limit: 8 }),
-    getProducts({ isNewArrival: true, limit: 8 }),
-    getProducts({ isBestSeller: true, limit: 8 }),
+    getProducts({ isFeatured: true, limit: 10 }),
+    getProducts({ isBestSeller: true, limit: 10 }),
+    getProducts({ limit: 10, sort: 'newest' }),
   ]);
 
   const cleanWhatsAppNumber = (settings.contact_whatsapp_number || '919744744960').replace(/\D/g, '');
 
   return (
-    <div className="space-y-16 sm:space-y-24 pb-16">
-      {/* 1. HERO BANNER */}
-      <section className="relative overflow-hidden bg-slate-950 text-white">
-        {/* Background Overlay */}
-        <div className="absolute inset-0 z-0 opacity-40">
-          <Image
-            src={settings.hero_image_url || 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80'}
-            alt="Hero Background"
-            fill
-            priority
-            className="object-cover object-center"
-            unoptimized
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent"></div>
-        </div>
+    <div className="space-y-12 sm:space-y-16 pb-16 bg-white">
+      {/* 1. HERO BANNER - Soft warm beige, living room lifestyle, terracotta accent */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6">
+        <div className="relative rounded-2xl overflow-hidden bg-[#f4efe8] border border-neutral-200/60 grid grid-cols-1 lg:grid-cols-12 min-h-[420px] sm:min-h-[460px]">
+          {/* Left Text Content */}
+          <div className="lg:col-span-7 p-8 sm:p-12 lg:p-16 flex flex-col justify-center space-y-6 z-10">
+            <span className="text-[11px] font-bold tracking-[0.25em] text-neutral-500 uppercase">
+              QUALITY. STYLE. EVERYDAY.
+            </span>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-36">
-          <div className="max-w-2xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs sm:text-sm font-semibold backdrop-blur-md">
-              <Zap className="w-4 h-4" />
-              <span>Multi-Category E-Commerce • WhatsApp Direct</span>
-            </div>
-
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white">
-              {settings.hero_title || 'Discover Premium Multi-Category Shopping'}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-neutral-900 leading-[1.15]">
+              Everything You Love,<br />
+              <span className="text-terracotta">All in One Place.</span>
             </h1>
 
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
-              {settings.hero_subtitle || 'Explore trending fashion, latest electronics, luxury beauty, and home essentials. Zero checkout forms — order directly on WhatsApp.'}
+            <p className="text-sm sm:text-base text-neutral-600 max-w-lg leading-relaxed font-normal">
+              Shop top-quality products across all categories with unbeatable prices and a seamless experience.
             </p>
 
-            <div className="pt-2 flex flex-wrap items-center gap-4">
+            <div className="pt-2">
               <Link
                 href="/products"
-                className="px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-2xl transition-all shadow-lg shadow-emerald-500/25 flex items-center gap-2 text-base active:scale-95"
+                className="inline-flex items-center gap-2 px-7 py-3.5 bg-black hover:bg-neutral-800 text-white text-xs sm:text-sm font-semibold rounded-md transition-all shadow-sm active:scale-95"
               >
-                <span>Shop All Products</span>
-                <ArrowRight className="w-5 h-5" />
+                <span>Shop Now</span>
+                <ArrowRight className="w-4 h-4" />
               </Link>
-
-              <a
-                href={`https://wa.me/${cleanWhatsAppNumber}?text=${encodeURIComponent('Hello! I would like to enquire about products available on SeedCart.')}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-2xl transition-all backdrop-blur-md border border-white/15 flex items-center gap-2.5 text-base"
-              >
-                <MessageCircle className="w-5 h-5 text-emerald-400" />
-                <span>Chat with Support</span>
-              </a>
             </div>
 
-            {/* Quick Metrics */}
-            <div className="pt-8 border-t border-white/10 grid grid-cols-3 gap-6 text-left">
-              <div>
-                <p className="text-2xl font-black text-white">{categories.length}+</p>
-                <p className="text-xs text-slate-400">Categories</p>
+            {/* Three Icon Features */}
+            <div className="pt-6 border-t border-neutral-300/60 grid grid-cols-3 gap-4 text-xs text-neutral-700">
+              <div className="flex items-center gap-2">
+                <ShoppingBag className="w-4 h-4 text-neutral-900 shrink-0" />
+                <span className="font-medium text-[11px] sm:text-xs leading-tight">Product Variety</span>
               </div>
-              <div>
-                <p className="text-2xl font-black text-emerald-400">100%</p>
-                <p className="text-xs text-slate-400">Verified Stock</p>
+              <div className="flex items-center gap-2">
+                <MessageCircle className="w-4 h-4 text-emerald-700 shrink-0" />
+                <span className="font-medium text-[11px] sm:text-xs leading-tight">Easy WhatsApp Order</span>
               </div>
-              <div>
-                <p className="text-2xl font-black text-white">Direct</p>
-                <p className="text-xs text-slate-400">WhatsApp Orders</p>
+              <div className="flex items-center gap-2">
+                <Headphones className="w-4 h-4 text-neutral-900 shrink-0" />
+                <span className="font-medium text-[11px] sm:text-xs leading-tight">Personal Assistance</span>
               </div>
             </div>
+          </div>
+
+          {/* Right Image */}
+          <div className="lg:col-span-5 relative min-h-[280px] lg:min-h-full">
+            <Image
+              src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=80"
+              alt="Contemporary warm living room interior"
+              fill
+              priority
+              className="object-cover object-center"
+              unoptimized
+            />
           </div>
         </div>
       </section>
 
-      {/* 2. SHOP BY CATEGORY */}
+      {/* 2. SHOP BY CATEGORY - Circular Tiles Row */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
-          <div>
-            <div className="flex items-center gap-2 text-emerald-700 text-xs font-bold uppercase tracking-wider mb-1">
-              <Layers className="w-4 h-4" />
-              <span>Explore Departments</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              Shop by Category
-            </h2>
-          </div>
+        <div className="flex items-center justify-between mb-6 pb-2 border-b border-neutral-100">
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900">
+            Shop by Category
+          </h2>
           <Link
             href="/products"
-            className="text-sm font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 group"
+            className="text-xs font-semibold text-neutral-600 hover:text-black flex items-center gap-1 group"
           >
             <span>View All Categories</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 
-        {categories.length === 0 ? (
-          <div className="text-center py-12 bg-white rounded-3xl border border-dashed border-slate-300">
-            <p className="text-slate-500 text-sm">No categories available at the moment.</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6">
-            {categories.map((cat) => (
-              <Link
-                key={cat.id}
-                href={`/category/${cat.slug}`}
-                className="group flex flex-col items-center bg-white rounded-2xl p-4 border border-slate-200/80 hover:border-emerald-500/50 hover:shadow-xl transition-all duration-300 text-center"
-              >
-                <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden bg-slate-100 mb-3 group-hover:scale-105 transition-transform duration-300">
-                  <Image
-                    src={cat.image_url || 'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=400&q=80'}
-                    alt={cat.name}
-                    fill
-                    sizes="100px"
-                    className="object-cover object-center"
-                    unoptimized
-                  />
-                </div>
-                <h3 className="font-bold text-xs sm:text-sm text-slate-900 group-hover:text-emerald-700 transition-colors line-clamp-1">
-                  {cat.name}
-                </h3>
-                {cat.product_count !== undefined && (
-                  <span className="text-[11px] text-slate-400 mt-0.5">
-                    {cat.product_count} {cat.product_count === 1 ? 'Product' : 'Products'}
-                  </span>
-                )}
-              </Link>
-            ))}
-          </div>
-        )}
+        {/* Circular Category Tiles */}
+        <div className="flex items-center gap-4 sm:gap-6 overflow-x-auto pb-4 scrollbar-none">
+          {categories.slice(0, 10).map((cat) => (
+            <Link
+              key={cat.id}
+              href={`/category/${cat.slug}`}
+              className="flex flex-col items-center flex-shrink-0 group text-center w-20 sm:w-24"
+            >
+              <div className="relative w-18 h-18 sm:w-20 sm:h-20 w-[72px] h-[72px] sm:w-[84px] sm:h-[84px] rounded-full overflow-hidden bg-neutral-100 border border-neutral-200/80 mb-2 group-hover:border-terracotta group-hover:scale-105 transition-all duration-300">
+                <Image
+                  src={cat.image_url || 'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=300&q=80'}
+                  alt={cat.name}
+                  fill
+                  sizes="84px"
+                  className="object-cover object-center"
+                  unoptimized
+                />
+              </div>
+              <span className="text-[11px] sm:text-xs font-medium text-neutral-800 group-hover:text-terracotta transition-colors line-clamp-1 leading-tight">
+                {cat.name}
+              </span>
+            </Link>
+          ))}
+        </div>
       </section>
 
-      {/* 3. FEATURED PRODUCTS */}
-      {featuredRes.products.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
-            <div>
-              <div className="flex items-center gap-2 text-amber-600 text-xs font-bold uppercase tracking-wider mb-1">
-                <Sparkles className="w-4 h-4" />
-                <span>Handpicked Collections</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                Featured Products
-              </h2>
-            </div>
-            <Link
-              href="/products?featured=true"
-              className="text-sm font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 group"
-            >
-              <span>Explore All Featured</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {featuredRes.products.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                whatsappNumber={settings.contact_whatsapp_number}
-              />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* 4. PROMOTIONAL HERO BANNER / HIGHLIGHT */}
+      {/* 3. THREE PROMOTIONAL BANNERS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-emerald-900 to-teal-950 text-white p-8 sm:p-12 lg:p-16 shadow-xl">
-          <div className="relative z-10 max-w-xl space-y-4">
-            <span className="inline-block px-3 py-1 bg-white/10 rounded-full text-xs font-bold text-emerald-300 backdrop-blur-sm border border-white/10">
-              Personalized Shopping Assistance
-            </span>
-            <h3 className="text-2xl sm:text-4xl font-black tracking-tight text-white leading-tight">
-              Looking for something specific or customized?
-            </h3>
-            <p className="text-sm sm:text-base text-slate-200 leading-relaxed">
-              Our direct WhatsApp assistance connects you directly with our catalog curators. Request size recommendations, alternative colors, bulk inquiries, or availability.
-            </p>
-            <div className="pt-2">
-              <a
-                href={`https://wa.me/${cleanWhatsAppNumber}?text=${encodeURIComponent('Hello SeedCart! I am looking for custom recommendations.')}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl transition-all shadow-md text-sm"
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span>Chat Directly on WhatsApp</span>
-              </a>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {/* Card 1: Deal of the Day (Warm beige) */}
+          <div className="bg-[#f4ede4] rounded-xl border border-neutral-200/60 p-6 flex justify-between items-center relative overflow-hidden group">
+            <div className="space-y-1 z-10 max-w-[60%]">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">
+                Deal of the Day
+              </span>
+              <h3 className="text-xl font-black text-neutral-900 leading-tight">
+                Up to 60% Off
+              </h3>
+              <p className="text-[11px] text-neutral-600 line-clamp-1">
+                Top electronics & accessories
+              </p>
+              <div className="pt-2">
+                <Link
+                  href="/products?featured=true"
+                  className="text-xs font-bold text-neutral-900 hover:text-terracotta inline-flex items-center gap-1"
+                >
+                  <span>Shop Deals</span>
+                  <ArrowRight className="w-3 h-3" />
+                </Link>
+              </div>
+            </div>
+            <div className="relative w-28 h-28 sm:w-32 sm:h-32 shrink-0 group-hover:scale-105 transition-transform duration-300">
+              <Image
+                src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80"
+                alt="Headphones deal"
+                fill
+                sizes="128px"
+                className="object-contain"
+                unoptimized
+              />
+            </div>
+          </div>
+
+          {/* Card 2: New Arrivals (Light grey/ivory) */}
+          <div className="bg-[#e8e4dc] rounded-xl border border-neutral-200/60 p-6 flex justify-between items-center relative overflow-hidden group">
+            <div className="space-y-1 z-10 max-w-[60%]">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">
+                New Season
+              </span>
+              <h3 className="text-xl font-black text-neutral-900 leading-tight">
+                Fresh Finds
+              </h3>
+              <p className="text-[11px] text-neutral-600 line-clamp-1">
+                Trendy apparel & daily essentials
+              </p>
+              <div className="pt-2">
+                <Link
+                  href="/products?new_arrival=true"
+                  className="text-xs font-bold text-neutral-900 hover:text-terracotta inline-flex items-center gap-1"
+                >
+                  <span>Explore Now</span>
+                  <ArrowRight className="w-3 h-3" />
+                </Link>
+              </div>
+            </div>
+            <div className="relative w-28 h-28 sm:w-32 sm:h-32 shrink-0 group-hover:scale-105 transition-transform duration-300">
+              <Image
+                src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80"
+                alt="Fresh sneakers"
+                fill
+                sizes="128px"
+                className="object-contain"
+                unoptimized
+              />
+            </div>
+          </div>
+
+          {/* Card 3: Exclusive Offers (Black / Charcoal) */}
+          <div className="bg-[#181818] text-white rounded-xl border border-neutral-800 p-6 flex justify-between items-center relative overflow-hidden group">
+            <div className="space-y-1 z-10 max-w-[60%]">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-terracotta-light">
+                Exclusive Curation
+              </span>
+              <h3 className="text-xl font-black text-white leading-tight">
+                Curated Picks
+              </h3>
+              <p className="text-[11px] text-neutral-400 line-clamp-1">
+                Handpicked premium collections
+              </p>
+              <div className="pt-2">
+                <Link
+                  href="/products?best_seller=true"
+                  className="text-xs font-bold text-terracotta-light hover:text-white inline-flex items-center gap-1"
+                >
+                  <span>Shop Now</span>
+                  <ArrowRight className="w-3 h-3" />
+                </Link>
+              </div>
+            </div>
+            <div className="relative w-28 h-28 sm:w-32 sm:h-32 shrink-0 group-hover:scale-105 transition-transform duration-300">
+              <Image
+                src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=400&q=80"
+                alt="Curated accessories"
+                fill
+                sizes="128px"
+                className="object-contain"
+                unoptimized
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* 5. NEW ARRIVALS */}
-      {newArrivalsRes.products.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
-            <div>
-              <div className="flex items-center gap-2 text-emerald-700 text-xs font-bold uppercase tracking-wider mb-1">
-                <Clock className="w-4 h-4" />
-                <span>Just Landed</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                New Arrivals
-              </h2>
-            </div>
-            <Link
-              href="/products?new_arrival=true"
-              className="text-sm font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 group"
-            >
-              <span>View All New</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {newArrivalsRes.products.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                whatsappNumber={settings.contact_whatsapp_number}
-              />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* 6. BEST SELLERS */}
-      {bestSellersRes.products.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
-            <div>
-              <div className="flex items-center gap-2 text-rose-600 text-xs font-bold uppercase tracking-wider mb-1">
-                <Flame className="w-4 h-4" />
-                <span>Customer Favorites</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                Best Sellers
-              </h2>
-            </div>
-            <Link
-              href="/products?best_seller=true"
-              className="text-sm font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 group"
-            >
-              <span>Explore Best Sellers</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {bestSellersRes.products.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                whatsappNumber={settings.contact_whatsapp_number}
-              />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* 7. WHY CHOOSE SEEDCART */}
+      {/* 4. TRENDING NOW PRODUCT SECTION (5 per row on desktop) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl border border-slate-200/80 p-8 sm:p-12">
-          <div className="text-center max-w-xl mx-auto mb-10">
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              The Effortless WhatsApp Shopping Flow
-            </h2>
-            <p className="text-sm text-slate-500 mt-2">
-              Browse any item, tap order, and our team immediately checks live stock and arranges direct courier dispatch to your location.
-            </p>
+        <div className="flex items-center justify-between mb-6 pb-2 border-b border-neutral-100">
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900">
+            Trending Now
+          </h2>
+          <Link
+            href="/products?best_seller=true"
+            className="text-xs font-semibold text-neutral-600 hover:text-black flex items-center gap-1 group"
+          >
+            <span>View All Products</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5">
+          {trendingRes.products.slice(0, 5).map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              whatsappNumber={settings.contact_whatsapp_number}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* 5. SERVICE BENEFITS STRIP - Pale Ivory Background */}
+      <section className="w-full bg-[#f8f6f0] border-y border-neutral-200/70 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="flex items-start gap-3">
+              <MessageCircle className="w-5 h-5 text-neutral-900 mt-0.5 shrink-0" />
+              <div>
+                <h4 className="text-xs font-bold text-neutral-900">Easy WhatsApp Ordering</h4>
+                <p className="text-[11px] text-neutral-500 mt-0.5">Direct checkout via prefilled chat</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <ShieldCheck className="w-5 h-5 text-neutral-900 mt-0.5 shrink-0" />
+              <div>
+                <h4 className="text-xs font-bold text-neutral-900">Quality Assured</h4>
+                <p className="text-[11px] text-neutral-500 mt-0.5">Genuine multi-category inventory</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <Headphones className="w-5 h-5 text-neutral-900 mt-0.5 shrink-0" />
+              <div>
+                <h4 className="text-xs font-bold text-neutral-900">Personal Assistance</h4>
+                <p className="text-[11px] text-neutral-500 mt-0.5">Direct support from store curators</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <ShoppingBag className="w-5 h-5 text-neutral-900 mt-0.5 shrink-0" />
+              <div>
+                <h4 className="text-xs font-bold text-neutral-900">Wide Selection</h4>
+                <p className="text-[11px] text-neutral-500 mt-0.5">Fashion, gadgets, beauty & home</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. RECOMMENDED FOR YOU (5 per row on desktop) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between mb-6 pb-2 border-b border-neutral-100">
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900">
+            Recommended for You
+          </h2>
+          <Link
+            href="/products"
+            className="text-xs font-semibold text-neutral-600 hover:text-black flex items-center gap-1 group"
+          >
+            <span>View All Products</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5">
+          {recommendedRes.products.slice(0, 5).map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              whatsappNumber={settings.contact_whatsapp_number}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* 7. NEWSLETTER / WHATSAPP CONNECT BANNER */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-[#f2ece3] rounded-2xl border border-neutral-200/70 p-6 sm:p-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          {/* Left Lifestyle Photo */}
+          <div className="md:col-span-4 relative h-48 sm:h-56 rounded-xl overflow-hidden">
+            <Image
+              src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80"
+              alt="Lifestyle decor"
+              fill
+              className="object-cover object-center"
+              unoptimized
+            />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-            <div className="text-center space-y-3">
-              <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center mx-auto text-xl font-black">
-                1
-              </div>
-              <h3 className="font-bold text-slate-900 text-base">Select Your Product</h3>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                Pick your preferred size, colour, or model from our wide selection of categories.
-              </p>
-            </div>
+          {/* Right Text & WhatsApp Connect Form */}
+          <div className="md:col-span-8 space-y-3">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-500">
+              VIP UPDATES & INQUIRIES
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-black text-neutral-900 tracking-tight">
+              Stay in the Loop
+            </h3>
+            <p className="text-xs sm:text-sm text-neutral-600 max-w-lg">
+              Connect on WhatsApp to receive alerts on fresh arrivals, custom recommendations, and exclusive promotions.
+            </p>
 
-            <div className="text-center space-y-3">
-              <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center mx-auto text-xl font-black">
-                2
-              </div>
-              <h3 className="font-bold text-slate-900 text-base">Tap Order on WhatsApp</h3>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                A pre-filled message with the exact product link, SKU, and options opens right in WhatsApp.
-              </p>
-            </div>
-
-            <div className="text-center space-y-3">
-              <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center mx-auto text-xl font-black">
-                3
-              </div>
-              <h3 className="font-bold text-slate-900 text-base">Confirm & Relax</h3>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                Our support team confirms availability and handles safe dispatch directly to you.
-              </p>
+            <div className="pt-2 flex flex-col sm:flex-row gap-2 max-w-md">
+              <a
+                href={`https://wa.me/${cleanWhatsAppNumber}?text=${encodeURIComponent('Hello! I would like to subscribe for WhatsApp updates and deals from NOVELLA.')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 bg-black hover:bg-neutral-800 text-white rounded-md text-xs font-semibold inline-flex items-center justify-center gap-2 transition-all shadow-sm"
+              >
+                <MessageCircle className="w-4 h-4 text-emerald-400" />
+                <span>Connect on WhatsApp</span>
+              </a>
             </div>
           </div>
         </div>
