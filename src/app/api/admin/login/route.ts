@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { validateAdminPhone, createAdminToken } from '@/lib/auth';
+import { validateAdminPhone, createAdminToken } from '../../../../lib/auth';
 
 export async function POST(req: NextRequest) {
   try {

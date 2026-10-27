@@ -1,8 +1,8 @@
 import React from 'react';
 import { redirect } from 'next/navigation';
-import { isAdminAuthenticated } from '@/lib/auth';
-import { getStoreSettings } from '@/lib/data';
-import AdminSidebar from '@/components/admin/AdminSidebar';
+import { isAdminAuthenticated } from '../../../lib/auth';
+import { getStoreSettings } from '../../../lib/data';
+import AdminSidebar from '../../../components/admin/AdminSidebar';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,10 +13,6 @@ export default async function AdminLayout({
 }) {
   const isAuth = await isAdminAuthenticated();
   const settings = await getStoreSettings();
-
-  // If not authenticated, we let the children render if on `/admin` (login page),
-  // but if inside protected admin subroutes, we redirect to `/admin`.
-  // Note: /admin/page.tsx handles login form display when not auth.
 
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col">

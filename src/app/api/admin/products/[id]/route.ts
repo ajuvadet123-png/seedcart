@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { checkAdminRequest } from '@/lib/auth';
-import { getClient, query } from '@/lib/db';
-import { getProductById } from '@/lib/data';
+import { checkAdminRequest } from '../../../../../lib/auth';
+import { getClient, query } from '../../../../../lib/db';
+import { getProductById } from '../../../../../lib/data';
 
 export async function GET(
   req: NextRequest,

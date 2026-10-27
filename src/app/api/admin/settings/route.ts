@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { checkAdminRequest } from '@/lib/auth';
-import { query } from '@/lib/db';
-import { getStoreSettings } from '@/lib/data';
+import { checkAdminRequest } from '../../../../lib/auth';
+import { query } from '../../../../lib/db';
+import { getStoreSettings } from '../../../../lib/data';
+
+export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
   try {

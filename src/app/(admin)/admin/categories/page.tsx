@@ -1,8 +1,8 @@
 import React from 'react';
 import { redirect } from 'next/navigation';
-import { isAdminAuthenticated } from '@/lib/auth';
-import { getCategories } from '@/lib/data';
-import CategoryManagement from '@/components/admin/CategoryManagement';
+import { isAdminAuthenticated } from '../../../../lib/auth';
+import { getCategories } from '../../../../lib/data';
+import CategoryManagement from '../../../../components/admin/CategoryManagement';
 
 export const dynamic = 'force-dynamic';
 

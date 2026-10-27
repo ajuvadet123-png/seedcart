@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { checkAdminRequest } from '@/lib/auth';
+import { checkAdminRequest } from '../../../../lib/auth';
 import { createClient } from '@supabase/supabase-js';
+
+export const dynamic = 'force-dynamic';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://wfwnycshxwingwqeljfg.supabase.co';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_UfqXShZKLP9y0n5c_u1hgw__75T0RIA';

@@ -16,8 +16,8 @@ import {
   Eye,
   Edit
 } from 'lucide-react';
-import { isAdminAuthenticated } from '@/lib/auth';
-import { getDashboardMetrics, getProducts, getCategories } from '@/lib/data';
+import { isAdminAuthenticated } from '../../../../lib/auth';
+import { getDashboardMetrics, getProducts, getCategories } from '../../../../lib/data';
 
 export const dynamic = 'force-dynamic';
 

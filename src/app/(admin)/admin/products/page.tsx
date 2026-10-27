@@ -1,9 +1,9 @@
 import React from 'react';
 import { redirect } from 'next/navigation';
-import { isAdminAuthenticated } from '@/lib/auth';
-import { getCategories } from '@/lib/data';
-import { query } from '@/lib/db';
-import ProductManagementTable from '@/components/admin/ProductManagementTable';
+import { isAdminAuthenticated } from '../../../../lib/auth';
+import { getCategories } from '../../../../lib/data';
+import { query } from '../../../../lib/db';
+import ProductManagementTable from '../../../../components/admin/ProductManagementTable';
 
 export const dynamic = 'force-dynamic';
 

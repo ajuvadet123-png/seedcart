@@ -1,8 +1,8 @@
 import React from 'react';
 import { redirect } from 'next/navigation';
-import { isAdminAuthenticated } from '@/lib/auth';
-import { getStoreSettings } from '@/lib/data';
-import StoreSettingsForm from '@/components/admin/StoreSettingsForm';
+import { isAdminAuthenticated } from '../../../../lib/auth';
+import { getStoreSettings } from '../../../../lib/data';
+import StoreSettingsForm from '../../../../components/admin/StoreSettingsForm';
 
 export const dynamic = 'force-dynamic';
 
