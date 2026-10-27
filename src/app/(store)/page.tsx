@@ -111,14 +111,14 @@ export default async function HomePage() {
             <Link
               key={cat.id}
               href={`/category/${cat.slug}`}
-              className="flex flex-col items-center flex-shrink-0 group text-center w-20 sm:w-24"
+              className="flex flex-col items-center flex-shrink-0 group text-center w-20 sm:w-24 no-underline"
             >
-              <div className="relative w-18 h-18 sm:w-20 sm:h-20 w-[72px] h-[72px] sm:w-[84px] sm:h-[84px] rounded-full overflow-hidden bg-neutral-100 border border-neutral-200/80 mb-2 group-hover:border-terracotta group-hover:scale-105 transition-all duration-300">
+              <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden bg-neutral-100 border border-neutral-200/80 mb-2 group-hover:border-terracotta group-hover:scale-105 transition-all duration-300">
                 <Image
                   src={cat.image_url || 'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=300&q=80'}
                   alt={cat.name}
                   fill
-                  sizes="84px"
+                  sizes="96px"
                   className="object-cover object-center"
                   unoptimized
                 />

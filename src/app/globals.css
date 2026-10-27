@@ -2,16 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 23, 23, 23;
-  --background-rgb: 255, 255, 255;
-}
+@layer base {
+  :root {
+    --foreground-rgb: 23, 23, 23;
+    --background-rgb: 255, 255, 255;
+  }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background-color: rgb(var(--background-rgb));
-  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-  letter-spacing: -0.01em;
+  body {
+    color: rgb(var(--foreground-rgb));
+    background-color: rgb(var(--background-rgb));
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    letter-spacing: -0.01em;
+  }
+
+  /* Explicit resets to guarantee no browser default blue links or unwanted text decorations */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: inherit;
+    letter-spacing: -0.02em;
+  }
 }
 
 /* Custom subtle scrollbars */

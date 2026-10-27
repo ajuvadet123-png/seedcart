@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { MessageCircle, Heart, Star } from 'lucide-react';
+import { MessageCircle, Heart } from 'lucide-react';
 import { Product } from '@/types';
 import { generateWhatsAppOrderUrl } from '@/lib/whatsapp';
 
@@ -34,11 +34,11 @@ export default function ProductCard({ product, whatsappNumber = '919744744960' }
   const isOutOfStock = product.availability_status === 'out_of_stock';
 
   return (
-    <div className="group relative bg-white border border-neutral-200/80 rounded-xl overflow-hidden hover:border-neutral-300 transition-all flex flex-col h-full">
+    <div className="group relative bg-white border border-neutral-200/90 rounded-xl overflow-hidden hover:border-neutral-400 hover:shadow-sm transition-all duration-200 flex flex-col h-full text-neutral-900">
       {/* Top badges & Wishlist */}
       <div className="absolute top-2.5 left-2.5 z-10 flex flex-col gap-1 pointer-events-none">
         {discountPercent > 0 && (
-          <span className="bg-[#b85d43] text-white text-[10px] font-bold px-1.5 py-0.5 rounded tracking-tight">
+          <span className="bg-[#b85d43] text-white text-[10px] font-bold px-1.5 py-0.5 rounded tracking-tight shadow-sm">
             -{discountPercent}%
           </span>
         )}
@@ -47,14 +47,14 @@ export default function ProductCard({ product, whatsappNumber = '919744744960' }
       <button
         type="button"
         onClick={() => setIsWishlisted(!isWishlisted)}
-        className="absolute top-2.5 right-2.5 z-10 w-7 h-7 rounded-full bg-white/90 hover:bg-white border border-neutral-200/80 flex items-center justify-center text-neutral-500 hover:text-rose-500 transition-all shadow-sm"
+        className="absolute top-2.5 right-2.5 z-10 w-7 h-7 rounded-full bg-white/90 hover:bg-white border border-neutral-200 flex items-center justify-center text-neutral-400 hover:text-rose-500 transition-all shadow-sm"
         aria-label="Save to Wishlist"
       >
         <Heart className={`w-3.5 h-3.5 ${isWishlisted ? 'fill-rose-500 text-rose-500' : ''}`} />
       </button>
 
       {/* Product Image */}
-      <Link href={`/product/${product.slug}`} className="relative block aspect-square w-full bg-[#f8f8f8] overflow-hidden">
+      <Link href={`/product/${product.slug}`} className="relative block aspect-square w-full bg-[#f8f8f8] overflow-hidden no-underline">
         <Image
           src={primaryImage}
           alt={product.name}
@@ -84,7 +84,7 @@ export default function ProductCard({ product, whatsappNumber = '919744744960' }
       </Link>
 
       {/* Card Info */}
-      <div className="p-3.5 flex flex-col flex-1 justify-between gap-2">
+      <div className="p-3.5 flex flex-col flex-1 justify-between gap-3">
         <div className="space-y-1">
           {/* Category Label */}
           <div className="text-[10px] uppercase font-semibold text-neutral-400 tracking-wider truncate">
@@ -92,8 +92,8 @@ export default function ProductCard({ product, whatsappNumber = '919744744960' }
           </div>
 
           {/* Product Name */}
-          <Link href={`/product/${product.slug}`}>
-            <h3 className="text-xs sm:text-sm font-semibold text-neutral-900 line-clamp-2 leading-snug group-hover:text-terracotta transition-colors">
+          <Link href={`/product/${product.slug}`} className="block no-underline text-neutral-900 group-hover:text-[#b85d43] transition-colors">
+            <h3 className="text-xs sm:text-sm font-semibold text-neutral-900 line-clamp-2 leading-snug">
               {product.name}
             </h3>
           </Link>
@@ -101,8 +101,8 @@ export default function ProductCard({ product, whatsappNumber = '919744744960' }
 
         {/* Price & Action Row */}
         <div className="pt-2 flex items-center justify-between border-t border-neutral-100">
-          <div className="flex items-baseline gap-1.5">
-            <span className="text-sm sm:text-base font-bold text-neutral-900">
+          <div className="flex items-baseline gap-2">
+            <span className="text-sm sm:text-base font-bold text-neutral-900 tracking-tight">
               ₹{product.selling_price.toLocaleString('en-IN')}
             </span>
             {product.original_price && product.original_price > product.selling_price && (
@@ -121,7 +121,7 @@ export default function ProductCard({ product, whatsappNumber = '919744744960' }
               target="_blank"
               rel="noopener noreferrer"
               title="Order on WhatsApp"
-              className="p-1.5 text-neutral-700 hover:text-white bg-neutral-100 hover:bg-black border border-neutral-200 hover:border-black rounded-md transition-colors flex items-center gap-1"
+              className="p-1.5 text-neutral-700 hover:text-white bg-neutral-100 hover:bg-black border border-neutral-200 hover:border-black rounded-md transition-colors flex items-center gap-1 no-underline"
             >
               <MessageCircle className="w-3.5 h-3.5 text-emerald-600 group-hover:text-emerald-400" />
             </a>
