@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Sparkles, Flame, CheckCircle, ShieldCheck, Tag, Info } from 'lucide-react';
+import { Sparkles, CheckCircle, ShieldCheck, Tag, Info } from 'lucide-react';
 import { getProductBySlug, getProducts, getStoreSettings } from '@/lib/data';
 import ProductGallery from '@/components/ProductGallery';
 import ProductOrderPanel from '@/components/ProductOrderPanel';
@@ -30,15 +30,15 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   ]);
 
   // Exclude current product from related products
-  const relatedProducts = relatedRes.products.filter(p => p.id !== product.id).slice(0, 5);
+  const relatedProducts = relatedRes.products.filter(p => p.id !== product.id).slice(0, 4);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-16">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-16 sm:space-y-20">
       {/* Breadcrumb */}
-      <nav className="flex items-center gap-2 text-xs text-neutral-400">
+      <nav className="flex items-center gap-2 text-xs text-neutral-400 font-medium tracking-wide">
         <Link href="/" className="hover:text-black transition-colors">Home</Link>
         <span>/</span>
-        <Link href="/products" className="hover:text-black transition-colors">Products</Link>
+        <Link href="/products" className="hover:text-black transition-colors">Store</Link>
         {product.category_slug && (
           <>
             <span>/</span>
@@ -48,7 +48,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           </>
         )}
         <span>/</span>
-        <span className="text-neutral-800 font-medium truncate max-w-xs">{product.name}</span>
+        <span className="text-neutral-900 font-semibold truncate max-w-xs">{product.name}</span>
       </nav>
 
       {/* Main Product Showcase Section */}
@@ -65,29 +65,29 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         <div className="lg:col-span-5 space-y-6">
           {/* Header & Badges */}
           <div>
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2 mb-2.5">
               {product.brand && (
-                <span className="text-[10px] font-bold text-neutral-600 tracking-wider uppercase bg-neutral-100 px-2 py-0.5 rounded">
+                <span className="text-[10px] font-bold text-neutral-800 tracking-wider uppercase bg-neutral-100 px-2.5 py-0.5 rounded-full">
                   {product.brand}
                 </span>
               )}
               {product.is_featured && (
-                <span className="text-[10px] font-bold text-terracotta bg-[#fbf3f0] px-2 py-0.5 rounded border border-[#f6e4de]">
+                <span className="text-[10px] font-bold text-black bg-seed px-2.5 py-0.5 rounded-full uppercase tracking-wider">
                   Featured
                 </span>
               )}
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-black text-neutral-900 tracking-tight leading-tight">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-neutral-900 tracking-tight leading-tight font-editorial">
               {product.name}
             </h1>
 
-            <div className="flex items-center gap-3 mt-2 text-xs text-neutral-500">
-              <span>SKU: <strong className="font-mono text-neutral-700">{product.sku}</strong></span>
+            <div className="flex items-center gap-3 mt-3 text-xs text-neutral-500">
+              <span>SKU: <strong className="font-mono text-neutral-800">{product.sku}</strong></span>
               <span>•</span>
               <span className={`font-semibold capitalize ${
-                product.availability_status === 'in_stock' ? 'text-neutral-800' :
-                product.availability_status === 'low_stock' ? 'text-amber-700' :
+                product.availability_status === 'in_stock' ? 'text-neutral-900' :
+                product.availability_status === 'low_stock' ? 'text-amber-600' :
                 'text-rose-600'
               }`}>
                 {product.availability_status.replace(/_/g, ' ')}
@@ -111,35 +111,35 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
       </div>
 
       {/* Description & Specifications Tabs / Details */}
-      <div className="border-t border-neutral-200 pt-12 space-y-10">
+      <div className="border-t border-neutral-200 pt-12 sm:pt-16 space-y-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
           {/* Full Description */}
           <div className="md:col-span-7 space-y-4">
-            <h2 className="text-lg font-bold text-neutral-900 uppercase tracking-wide">
+            <h2 className="text-sm font-bold text-neutral-900 uppercase tracking-widest">
               Product Overview
             </h2>
             <div className="prose prose-neutral prose-sm text-neutral-600 leading-relaxed whitespace-pre-line text-xs sm:text-sm">
-              {product.description || product.short_description || 'Detailed specifications and product details are available upon request directly through our WhatsApp team.'}
+              {product.description || product.short_description || 'Detailed specifications and fabric details are available upon request directly through our WhatsApp team.'}
             </div>
           </div>
 
           {/* Specifications / Attributes Table */}
           <div className="md:col-span-5 space-y-4">
-            <h2 className="text-lg font-bold text-neutral-900 uppercase tracking-wide">
+            <h2 className="text-sm font-bold text-neutral-900 uppercase tracking-widest">
               Specifications
             </h2>
             {product.attributes && product.attributes.length > 0 ? (
-              <div className="border border-neutral-200 rounded-lg overflow-hidden bg-white text-xs divide-y divide-neutral-100">
+              <div className="border border-neutral-200/90 rounded-xl overflow-hidden bg-white text-xs divide-y divide-neutral-100">
                 {product.attributes.map((attr) => (
-                  <div key={attr.id || attr.attribute_name} className="grid grid-cols-3 p-3">
+                  <div key={attr.id || attr.attribute_name} className="grid grid-cols-3 p-3.5">
                     <span className="font-semibold text-neutral-500">{attr.attribute_name}</span>
-                    <span className="col-span-2 text-neutral-800 font-medium">{attr.attribute_value}</span>
+                    <span className="col-span-2 text-neutral-900 font-medium">{attr.attribute_value}</span>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="p-4 bg-[#faf8f5] border border-neutral-200/80 rounded-lg text-xs text-neutral-500">
-                Standard quality checked specifications. Contact on WhatsApp for specific measurements or material queries.
+              <div className="p-4 bg-[#f9f9f9] border border-neutral-200/80 rounded-xl text-xs text-neutral-500 leading-relaxed">
+                Standard quality-tested specifications. Contact on WhatsApp for specific garment measurements, fabric composition, or sizing queries.
               </div>
             )}
           </div>
@@ -148,22 +148,22 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
       {/* Related Products from Same Category */}
       {relatedProducts.length > 0 && (
-        <div className="border-t border-neutral-200 pt-12 space-y-6">
+        <div className="border-t border-neutral-200 pt-12 sm:pt-16 space-y-8">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-neutral-900 tracking-tight">
-              Related in {product.category_name || 'Category'}
+            <h2 className="text-xl sm:text-2xl font-black text-neutral-900 tracking-tight uppercase">
+              You May Also Like
             </h2>
             {product.category_slug && (
               <Link
                 href={`/category/${product.category_slug}`}
-                className="text-xs font-semibold text-neutral-600 hover:text-black"
+                className="text-xs font-bold text-black hover:text-seed transition-colors"
               >
                 View Category →
               </Link>
             )}
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {relatedProducts.map((p) => (
               <ProductCard
                 key={p.id}

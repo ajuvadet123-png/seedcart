@@ -52,30 +52,30 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 bg-white">
       {/* Page Title & Breadcrumbs */}
-      <div className="mb-8">
-        <div className="flex items-center gap-2 text-xs text-neutral-400 mb-2">
+      <div className="mb-10">
+        <div className="flex items-center gap-2 text-xs text-neutral-400 font-medium mb-3">
           <Link href="/" className="hover:text-black transition-colors">Home</Link>
           <span>/</span>
-          <span className="text-neutral-800 font-medium">All Products</span>
+          <span className="text-neutral-900 font-semibold">Products</span>
           {categorySlug && (
             <>
               <span>/</span>
-              <span className="text-neutral-800 font-medium capitalize">{categorySlug.replace(/-/g, ' ')}</span>
+              <span className="text-neutral-900 font-semibold capitalize">{categorySlug.replace(/-/g, ' ')}</span>
             </>
           )}
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-neutral-100">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-neutral-100">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-black text-neutral-900 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-900 tracking-tight uppercase font-editorial">
               {isFeatured ? 'Top Deals' :
                isNewArrival ? 'New Arrivals' :
                isBestSeller ? 'Best Sellers' :
                categorySlug ? `${categories.find(c => c.slug === categorySlug)?.name || 'Category'} Collection` :
                'All Products'}
             </h1>
-            <p className="text-xs sm:text-sm text-neutral-500 mt-1">
-              Showing {products.length} of {total} {total === 1 ? 'item' : 'items'} available for WhatsApp ordering.
+            <p className="text-xs sm:text-sm text-neutral-500 mt-2 font-normal">
+              Showing {products.length} of {total} {total === 1 ? 'item' : 'items'} available for instant WhatsApp ordering.
             </p>
           </div>
 
@@ -83,40 +83,40 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
           <div className="flex flex-wrap items-center gap-2 text-xs">
             <Link
               href="/products"
-              className={`px-3 py-1.5 rounded-md border text-xs font-medium transition-all ${
+              className={`px-4 py-2 rounded-full border text-xs font-bold uppercase tracking-wider transition-all ${
                 !isFeatured && !isNewArrival && !isBestSeller && !categorySlug
-                  ? 'bg-black text-white border-black font-semibold'
-                  : 'bg-white text-neutral-700 border-neutral-200 hover:border-neutral-400'
+                  ? 'bg-black text-white border-black shadow-xs'
+                  : 'bg-white text-neutral-700 border-neutral-200 hover:border-black'
               }`}
             >
               All Items
             </Link>
             <Link
               href="/products?featured=true"
-              className={`px-3 py-1.5 rounded-md border text-xs font-medium transition-all ${
+              className={`px-4 py-2 rounded-full border text-xs font-bold uppercase tracking-wider transition-all ${
                 isFeatured
-                  ? 'bg-black text-white border-black font-semibold'
-                  : 'bg-white text-neutral-700 border-neutral-200 hover:border-neutral-400'
+                  ? 'bg-black text-white border-black shadow-xs'
+                  : 'bg-white text-neutral-700 border-neutral-200 hover:border-black'
               }`}
             >
               Top Deals
             </Link>
             <Link
               href="/products?new_arrival=true"
-              className={`px-3 py-1.5 rounded-md border text-xs font-medium transition-all ${
+              className={`px-4 py-2 rounded-full border text-xs font-bold uppercase tracking-wider transition-all ${
                 isNewArrival
-                  ? 'bg-black text-white border-black font-semibold'
-                  : 'bg-white text-neutral-700 border-neutral-200 hover:border-neutral-400'
+                  ? 'bg-black text-white border-black shadow-xs'
+                  : 'bg-white text-neutral-700 border-neutral-200 hover:border-black'
               }`}
             >
               New Arrivals
             </Link>
             <Link
               href="/products?best_seller=true"
-              className={`px-3 py-1.5 rounded-md border text-xs font-medium transition-all ${
+              className={`px-4 py-2 rounded-full border text-xs font-bold uppercase tracking-wider transition-all ${
                 isBestSeller
-                  ? 'bg-black text-white border-black font-semibold'
-                  : 'bg-white text-neutral-700 border-neutral-200 hover:border-neutral-400'
+                  ? 'bg-black text-white border-black shadow-xs'
+                  : 'bg-white text-neutral-700 border-neutral-200 hover:border-black'
               }`}
             >
               Best Sellers
@@ -128,7 +128,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Sidebar Filters */}
         <div className="lg:col-span-1 space-y-6">
-          <div className="bg-[#faf8f5] rounded-xl border border-neutral-200/80 p-5 space-y-6 sticky top-28">
+          <div className="bg-[#fafafa] rounded-2xl border border-neutral-200/80 p-5 space-y-6 sticky top-28">
             <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
               <h3 className="font-bold text-neutral-900 text-xs uppercase tracking-wider flex items-center gap-2">
                 <SlidersHorizontal className="w-3.5 h-3.5" />
@@ -137,7 +137,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
               {(categorySlug || minPrice || maxPrice || sort !== 'newest') && (
                 <Link
                   href="/products"
-                  className="text-[11px] font-semibold text-terracotta hover:underline"
+                  className="text-[11px] font-bold text-black hover:text-seed underline underline-offset-2"
                 >
                   Reset
                 </Link>
@@ -164,10 +164,10 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                     <Link
                       key={s.val}
                       href={`/products?${params.toString()}`}
-                      className={`block px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                      className={`block px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
                         isCurrent
-                          ? 'bg-black text-white font-semibold'
-                          : 'text-neutral-700 hover:bg-neutral-200/50'
+                          ? 'bg-black text-white font-bold'
+                          : 'text-neutral-700 hover:bg-neutral-200/60'
                       }`}
                     >
                       {s.label}
@@ -185,12 +185,12 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
               <div className="max-h-60 overflow-y-auto space-y-1 pr-1 scrollbar-none">
                 <Link
                   href="/products"
-                  className={`flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
-                    !categorySlug ? 'bg-black text-white font-semibold' : 'text-neutral-700 hover:bg-neutral-200/50'
+                  className={`flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+                    !categorySlug ? 'bg-black text-white' : 'text-neutral-700 hover:bg-neutral-200/60'
                   }`}
                 >
                   <span>All Categories</span>
-                  <span className={`text-[10px] ${!categorySlug ? 'text-neutral-300' : 'text-neutral-400'}`}>{total}</span>
+                  <span className={`text-[10px] font-mono ${!categorySlug ? 'text-seed' : 'text-neutral-400'}`}>{total}</span>
                 </Link>
                 {categories.map((c) => {
                   const isSelected = categorySlug === c.slug;
@@ -198,13 +198,13 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                     <Link
                       key={c.id}
                       href={`/products?category=${c.slug}`}
-                      className={`flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
-                        isSelected ? 'bg-black text-white font-semibold' : 'text-neutral-700 hover:bg-neutral-200/50'
+                      className={`flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+                        isSelected ? 'bg-black text-white' : 'text-neutral-700 hover:bg-neutral-200/60'
                       }`}
                     >
                       <span className="truncate">{c.name}</span>
                       {c.product_count !== undefined && (
-                        <span className={`text-[10px] ${isSelected ? 'text-neutral-300' : 'text-neutral-400'}`}>
+                        <span className={`text-[10px] font-mono ${isSelected ? 'text-seed' : 'text-neutral-400'}`}>
                           {c.product_count}
                         </span>
                       )}
@@ -233,10 +233,10 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
                     <Link
                       key={av.val}
                       href={`/products?${params.toString()}`}
-                      className={`block px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                      className={`block px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
                         isCurrent
-                          ? 'bg-black text-white font-semibold'
-                          : 'text-neutral-700 hover:bg-neutral-200/50'
+                          ? 'bg-black text-white'
+                          : 'text-neutral-700 hover:bg-neutral-200/60'
                       }`}
                     >
                       {av.label}
@@ -251,25 +251,25 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
         {/* Product Grid Area */}
         <div className="lg:col-span-3">
           {products.length === 0 ? (
-            <div className="bg-[#faf8f5] rounded-xl border border-neutral-200 p-12 text-center space-y-3">
+            <div className="bg-[#f9f9f9] rounded-2xl border border-neutral-200 p-12 text-center space-y-3">
               <div className="w-12 h-12 rounded-full bg-neutral-200 flex items-center justify-center mx-auto text-neutral-400">
                 <ShoppingBag className="w-6 h-6" />
               </div>
               <h3 className="text-base font-bold text-neutral-900">No products found</h3>
               <p className="text-xs text-neutral-500 max-w-sm mx-auto">
-                No items match your filter criteria. Try resetting your search filters.
+                No items match your filter criteria. Try resetting your search filters or browse other departments.
               </p>
               <div className="pt-2">
                 <Link
                   href="/products"
-                  className="inline-flex px-4 py-2 bg-black text-white rounded-md text-xs font-semibold hover:bg-neutral-800"
+                  className="inline-flex px-5 py-2.5 bg-black text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-neutral-800"
                 >
                   Reset All Filters
                 </Link>
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
               {products.map((product) => (
                 <ProductCard
                   key={product.id}

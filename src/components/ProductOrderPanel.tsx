@@ -70,28 +70,31 @@ export default function ProductOrderPanel({ product, whatsappNumber = '919744744
   });
 
   const isOutOfStock = product.availability_status === 'out_of_stock';
+  const discountPercent = product.original_price && product.original_price > product.selling_price
+    ? Math.round(((product.original_price - product.selling_price) / product.original_price) * 100)
+    : 0;
 
   return (
     <div className="space-y-6">
       {/* Price Block */}
-      <div className="bg-[#fbf9f6] border border-neutral-200/80 rounded-xl p-5">
+      <div className="bg-[#f9f9f9] border border-neutral-200/90 rounded-2xl p-5">
         <div className="flex items-baseline gap-3">
-          <span className="text-3xl font-black text-neutral-900 tracking-tight">
+          <span className="text-3xl sm:text-4xl font-black text-neutral-900 tracking-tight">
             ₹{currentPrice.toLocaleString('en-IN')}
           </span>
           {product.original_price && product.original_price > product.selling_price && (
             <>
-              <span className="text-sm text-neutral-400 line-through">
+              <span className="text-sm sm:text-base text-neutral-400 line-through">
                 ₹{product.original_price.toLocaleString('en-IN')}
               </span>
-              <span className="text-[11px] font-bold text-terracotta bg-[#fbf3f0] px-2 py-0.5 rounded border border-[#f6e4de]">
-                {Math.round(((product.original_price - product.selling_price) / product.original_price) * 100)}% OFF
+              <span className="text-[11px] font-black text-seed bg-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                {discountPercent}% OFF
               </span>
             </>
           )}
         </div>
-        <p className="text-xs text-neutral-500 mt-1">
-          Price includes applicable taxes. Direct WhatsApp ordering & live stock confirmation.
+        <p className="text-xs text-neutral-500 mt-2 font-medium">
+          Inclusive of all taxes. Direct WhatsApp ordering & live inventory confirmation.
         </p>
       </div>
 
@@ -100,11 +103,13 @@ export default function ProductOrderPanel({ product, whatsappNumber = '919744744
         const variants = variantsByType[type];
 
         return (
-          <div key={type} className="space-y-2">
+          <div key={type} className="space-y-2.5">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-bold text-neutral-900 uppercase tracking-wider">Select {type}</span>
+              <span className="font-bold text-neutral-900 uppercase tracking-wider text-[11px]">
+                Select {type}
+              </span>
               {selectedVariants[type] && (
-                <span className="font-semibold text-neutral-700 bg-neutral-100 px-2 py-0.5 rounded text-[11px]">
+                <span className="font-semibold text-neutral-800 bg-neutral-100 px-2.5 py-0.5 rounded-full text-[11px]">
                   {selectedVariants[type]}
                 </span>
               )}
@@ -118,10 +123,10 @@ export default function ProductOrderPanel({ product, whatsappNumber = '919744744
                     key={v.id || v.variant_value}
                     type="button"
                     onClick={() => handleVariantSelect(type, v.variant_value)}
-                    className={`min-w-[40px] px-3.5 py-1.5 text-xs font-medium rounded-md border transition-all flex items-center justify-center gap-1.5 ${
+                    className={`min-w-[44px] px-4 py-2 text-xs font-semibold rounded-lg border transition-all flex items-center justify-center gap-1.5 ${
                       isSelected
-                        ? 'border-black bg-black text-white font-semibold'
-                        : 'border-neutral-200 bg-white text-neutral-700 hover:border-neutral-400'
+                        ? 'border-black bg-black text-white shadow-xs'
+                        : 'border-neutral-200 bg-white text-neutral-800 hover:border-black'
                     }`}
                   >
                     <span>{v.variant_value}</span>
@@ -134,27 +139,29 @@ export default function ProductOrderPanel({ product, whatsappNumber = '919744744
       })}
 
       {/* Quantity Selector */}
-      <div className="space-y-2">
-        <label className="text-xs font-bold text-neutral-900 uppercase tracking-wider block">Quantity</label>
-        <div className="flex items-center gap-3">
-          <div className="flex items-center border border-neutral-300 bg-white rounded-md overflow-hidden">
+      <div className="space-y-2.5">
+        <label className="text-[11px] font-bold text-neutral-900 uppercase tracking-wider block">
+          Quantity
+        </label>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center border border-neutral-300 bg-white rounded-lg overflow-hidden">
             <button
               type="button"
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
               disabled={quantity <= 1 || isOutOfStock}
-              className="p-2.5 text-neutral-600 hover:bg-neutral-100 disabled:opacity-40 transition-colors"
+              className="p-2.5 text-neutral-700 hover:bg-neutral-100 disabled:opacity-30 transition-colors"
               aria-label="Decrease quantity"
             >
               <Minus className="w-3.5 h-3.5" />
             </button>
-            <span className="w-10 text-center text-xs font-bold text-neutral-900">
+            <span className="w-12 text-center text-xs font-bold text-neutral-900">
               {quantity}
             </span>
             <button
               type="button"
               onClick={() => setQuantity(quantity + 1)}
               disabled={isOutOfStock}
-              className="p-2.5 text-neutral-600 hover:bg-neutral-100 disabled:opacity-40 transition-colors"
+              className="p-2.5 text-neutral-700 hover:bg-neutral-100 disabled:opacity-30 transition-colors"
               aria-label="Increase quantity"
             >
               <Plus className="w-3.5 h-3.5" />
@@ -162,8 +169,8 @@ export default function ProductOrderPanel({ product, whatsappNumber = '919744744
           </div>
 
           {quantity > 1 && (
-            <span className="text-xs text-neutral-500">
-              Total: <strong className="text-neutral-900">₹{totalPrice.toLocaleString('en-IN')}</strong>
+            <span className="text-xs text-neutral-500 font-medium">
+              Subtotal: <strong className="text-neutral-900 font-black">₹{totalPrice.toLocaleString('en-IN')}</strong>
             </span>
           )}
         </div>
@@ -174,40 +181,41 @@ export default function ProductOrderPanel({ product, whatsappNumber = '919744744
         {isOutOfStock ? (
           <button
             disabled
-            className="w-full py-3.5 px-6 bg-neutral-200 text-neutral-500 rounded-md font-semibold text-xs cursor-not-allowed flex items-center justify-center gap-2"
+            className="w-full py-4 px-6 bg-neutral-200 text-neutral-400 rounded-full font-bold text-xs cursor-not-allowed flex items-center justify-center gap-2 uppercase tracking-wider"
           >
             <AlertCircle className="w-4 h-4 text-neutral-400" />
-            <span>Currently Out of Stock</span>
+            <span>Out of Stock</span>
           </button>
         ) : (
           <a
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full py-4 px-6 bg-black hover:bg-neutral-800 active:scale-[0.99] text-white rounded-md font-semibold text-sm transition-all flex items-center justify-center gap-2.5 group shadow-sm"
+            className="w-full py-4 px-6 bg-black hover:bg-neutral-900 active:scale-[0.99] text-white rounded-full font-bold text-sm tracking-wide transition-all flex items-center justify-center gap-3 group shadow-md border border-black hover:border-seed"
           >
-            <MessageCircle className="w-4 h-4 text-emerald-400" />
+            <span className="w-2.5 h-2.5 rounded-full bg-seed animate-ping"></span>
+            <MessageCircle className="w-4 h-4 text-seed" />
             <span>Order on WhatsApp • ₹{totalPrice.toLocaleString('en-IN')}</span>
           </a>
         )}
-        <p className="text-center text-[11px] text-neutral-400 mt-2">
-          Clicking opens WhatsApp with business number +91 97447 44960 with prefilled order details.
+        <p className="text-center text-[11px] text-neutral-400 mt-2.5">
+          Opens WhatsApp directly with prefilled order details for immediate processing.
         </p>
       </div>
 
       {/* Trust & Guarantee Info */}
-      <div className="border-t border-neutral-200 pt-5 space-y-2.5 text-xs text-neutral-600">
+      <div className="border-t border-neutral-200/80 pt-5 space-y-3 text-xs text-neutral-600">
         <div className="flex items-center gap-2.5">
-          <Truck className="w-4 h-4 text-neutral-800 shrink-0" />
-          <span>Direct Dispatch & Courier Tracking shared via WhatsApp</span>
+          <Truck className="w-4 h-4 text-black shrink-0" />
+          <span>Direct Dispatch & Courier Tracking shared directly via WhatsApp</span>
         </div>
         <div className="flex items-center gap-2.5">
-          <ShieldCheck className="w-4 h-4 text-neutral-800 shrink-0" />
-          <span>100% Genuine, verified products guaranteed</span>
+          <ShieldCheck className="w-4 h-4 text-black shrink-0" />
+          <span>100% Genuine, verified SEED quality guaranteed</span>
         </div>
         <div className="flex items-center gap-2.5">
-          <RefreshCw className="w-4 h-4 text-neutral-800 shrink-0" />
-          <span>Personal customer assistance from store curators</span>
+          <RefreshCw className="w-4 h-4 text-black shrink-0" />
+          <span>Personal order guidance and fit recommendation from store team</span>
         </div>
       </div>
     </div>

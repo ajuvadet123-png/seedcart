@@ -4,18 +4,18 @@
 
 @layer base {
   :root {
-    --foreground-rgb: 23, 23, 23;
+    --foreground-rgb: 10, 10, 10;
     --background-rgb: 255, 255, 255;
+    --seed-neon: #39FF00;
   }
 
   body {
     color: rgb(var(--foreground-rgb));
     background-color: rgb(var(--background-rgb));
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
   }
 
-  /* Explicit resets to guarantee no browser default blue links or unwanted text decorations */
   a {
     color: inherit;
     text-decoration: none;
@@ -23,24 +23,29 @@
 
   h1, h2, h3, h4, h5, h6 {
     color: inherit;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
   }
+}
+
+/* Editorial typography utility */
+.font-editorial {
+  font-family: 'Playfair Display', Didot, 'Bodoni MT', Georgia, serif;
 }
 
 /* Custom subtle scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #fdfbf9;
+  background: #ffffff;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d8cfc4;
+  background: #d4d4d4;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #b8aba0;
+  background: #a3a3a3;
 }
 
 .scrollbar-none::-webkit-scrollbar {
@@ -49,6 +54,15 @@
 .scrollbar-none {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Neon glow utility */
+.neon-glow {
+  box-shadow: 0 0 25px rgba(57, 255, 0, 0.45);
+}
+
+.neon-glow-sm {
+  box-shadow: 0 0 12px rgba(57, 255, 0, 0.35);
 }
 
 /* Line clamp utilities */

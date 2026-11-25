@@ -24,7 +24,7 @@ interface AdminSidebarProps {
   storeName?: string;
 }
 
-export default function AdminSidebar({ storeName = 'SeedCart' }: AdminSidebarProps) {
+export default function AdminSidebar({ storeName = 'SEED' }: AdminSidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);

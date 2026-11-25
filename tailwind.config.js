@@ -8,40 +8,68 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        terracotta: {
-          DEFAULT: "#b85d43",
-          hover: "#a34e36",
-          light: "#c86d51",
-          50: "#fbf3f0",
-          100: "#f6e4de",
+        seed: {
+          DEFAULT: "#39FF00",
+          light: "#66ff33",
+          dark: "#2eb800",
+          accent: "#39FF00",
+          glow: "rgba(57, 255, 0, 0.3)",
         },
-        warm: {
-          50: "#fdfbf9",
-          100: "#fbf8f5",
-          150: "#f7f4ee",
-          200: "#f2ece1",
-          300: "#e6dcce",
-          400: "#d3c2ad",
-          500: "#bda58d",
-          600: "#9f866e",
-          700: "#7c6753",
-          800: "#5d4c3d",
-          900: "#3d3228",
+        brand: {
+          green: "#39FF00",
+          black: "#0a0a0a",
+          dark: "#141414",
+          surface: "#f8f9fa",
         },
         charcoal: {
-          DEFAULT: "#141414",
-          light: "#222222",
-          subtle: "#2a2a2a",
+          DEFAULT: "#111111",
+          light: "#1c1c1c",
+          subtle: "#262626",
+          dark: "#0a0a0a",
         },
         whatsapp: {
           DEFAULT: "#25D366",
           dark: "#128C7E",
           hover: "#1ebd5c",
-        }
+        },
+        terracotta: {
+          DEFAULT: "#111111",
+          hover: "#39FF00",
+          light: "#39FF00",
+          50: "#f0fdf4",
+          100: "#dcfce7",
+        },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
-        serif: ["Playfair Display", "Georgia", "serif"],
+        sans: [
+          "Inter",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Roboto",
+          "Helvetica Neue",
+          "Arial",
+          "sans-serif"
+        ],
+        serif: [
+          "Playfair Display",
+          "Didot",
+          "Bodoni MT",
+          "Georgia",
+          "serif"
+        ],
+        editorial: [
+          "Playfair Display",
+          "Didot",
+          "Bodoni MT",
+          "Georgia",
+          "serif"
+        ],
+      },
+      borderRadius: {
+        '2xl': '1rem',
+        '3xl': '1.5rem',
+        '4xl': '2rem',
       },
     },
   },
